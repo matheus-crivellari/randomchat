@@ -1,0 +1,58 @@
+/* green */
+/* ocre */
+/* grey */
+/* brown */
+html, body {
+  background: #dadbd5; }
+  html div.main, body div.main {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; }
+    html div.main div.bg-head, body div.main div.bg-head {
+      position: relative;
+      height: 15%;
+      width: 100%;
+      background-color: #009688; }
+    html div.main div.wrapper, body div.main div.wrapper {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      padding: 1% 4%;
+      top: 0;
+      left: 0;
+      box-sizing: border-box; }
+      html div.main div.wrapper div.chat-wrapper, body div.main div.wrapper div.chat-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background-color: #eeeeee;
+        box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.15);
+        border-radius: 4px; }
+        html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          background-color: #e5ddd5;
+          box-sizing: border-box;
+          border-radius: 4px;
+          padding: 60px 0; }
+          html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-header, html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-bottom, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-header, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-bottom {
+            position: absolute;
+            width: 100%;
+            height: 60px;
+            border-radius: 4px;
+            background-color: #eeeeee; }
+            html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-header.msg-panel-header, html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-bottom.msg-panel-header, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-header.msg-panel-header, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-bottom.msg-panel-header {
+              top: 0; }
+            html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-header.msg-panel-bottom, html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-bottom.msg-panel-bottom, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-header.msg-panel-bottom, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-bottom.msg-panel-bottom {
+              bottom: 0; }
+          html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body {
+            position: relative;
+            height: 100%;
+            width: 100%; }
+
+@media screen and (max-width: 1024px) {
+  html, body div.main div.wrapper {
+    padding: 0; } }

@@ -1,0 +1,81 @@
+@import 'colors.scss';
+
+$background_color 		: $color2;
+$background_head_color 	: $color1;
+$chat_wrapper_color 	: $color3;
+$msg_panel_color 		: $color4;
+
+html, body{
+	background: $background_color;
+
+	div.main{
+		position: absolute;
+		top: 0; left: 0;
+		width: 100%;
+		height: 100%;
+
+		div.bg-head{
+			position: relative;
+			height: 15%;
+			width: 100%;
+			background-color: $background_head_color;
+		}
+
+		div.wrapper{
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			padding: 1% 4%;
+			top: 0; left: 0;
+			box-sizing: border-box;
+
+			div.chat-wrapper{
+				position: relative;
+				width: 100%;
+				height: 100%;
+				background-color: $chat_wrapper_color;
+				box-shadow: 1px 1px 6px 0px rgba(0,0,0,.15);
+			    border-radius: 4px;
+
+			    div.msg-panel-wrapper{
+			    	position: relative;
+			    	width: 100%;
+			    	height: 100%;
+			    	background-color: $msg_panel_color;
+			    	box-sizing: border-box;
+			    	border-radius: 4px;
+			    	padding: 60px 0;
+
+			    	div.msg-panel-header, div.msg-panel-bottom {
+			    		position: absolute;
+			    		width: 100%;
+			    		height: 60px;
+			   			border-radius: 4px;
+			   			background-color: $chat_wrapper_color;
+
+			    		&.msg-panel-header{
+			    			top: 0;
+			    		}
+
+			    		&.msg-panel-bottom{
+			    			bottom: 0;
+			    		}
+			    	}
+
+			    	div.msg-panel-body{
+			    		position: relative;
+			    		height: 100%;
+			    		width: 100%;
+			    	}
+			    }
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 1024px) {
+	html, body div.main div.wrapper{
+		padding: 0;
+	}
+
+}
