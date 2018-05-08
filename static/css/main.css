@@ -2,8 +2,14 @@
 /* ocre */
 /* grey */
 /* brown */
+/* white */
+/* lime green */
+/* blood red */
+/* dark blue */
+/* bacby blue */
 html, body {
-  background: #dadbd5; }
+  background: #dadbd5;
+  font-family: 'Roboto', sans-serif; }
   html div.main, body div.main {
     position: absolute;
     top: 0;
@@ -51,8 +57,56 @@ html, body {
           html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body {
             position: relative;
             height: 100%;
-            width: 100%; }
+            width: 100%;
+            overflow: auto; }
+            html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row {
+              position: relative;
+              width: 100%;
+              margin-bottom: 15px;
+              padding: 0 40px;
+              box-sizing: border-box; }
+              html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row:first-child, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row:first-child {
+                margin-top: 20px; }
+              html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row:last-child, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row:last-child {
+                margin-bottom: 30px; }
+              html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row.me, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row.me {
+                padding-left: 52%; }
+              html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row.they, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row.they {
+                padding-right: 52%; }
+              html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row.alert, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row.alert {
+                padding-left: 15%;
+                padding-right: 15%; }
+              html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row > div.msg, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row > div.msg {
+                position: relative;
+                max-width: 100%;
+                padding: 6px 20px;
+                border-radius: 4px;
+                box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.1);
+                color: #555; }
+                html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row > div.msg.they, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row > div.msg.they {
+                  background-color: #ffffff; }
+                  html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row > div.msg.they strong, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row > div.msg.they strong {
+                    color: #ab0d0d;
+                    font-weight: 700; }
+                html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row > div.msg.me, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row > div.msg.me {
+                  background-color: #dcf8c6; }
+                  html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row > div.msg.me strong, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row > div.msg.me strong {
+                    color: #3838af;
+                    font-weight: 700; }
+                html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row > div.msg.alert, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row > div.msg.alert {
+                  background-color: #e1f3fa;
+                  text-align: center; }
 
 @media screen and (max-width: 1024px) {
-  html, body div.main div.wrapper {
-    padding: 0; } }
+  html div.main div.wrapper, body div.main div.wrapper {
+    padding: 0; }
+    html div.main div.wrapper div.chat-wrapper, body div.main div.wrapper div.chat-wrapper {
+      border-radius: unset; }
+      html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper {
+        border-radius: unset; }
+        html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-header, html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-bottom, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-header, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-bottom {
+          border-radius: unset; }
+        html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row.me, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row.me {
+          padding-left: 25%; }
+        html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row.they, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-body > div.row.they {
+          padding-right: 25%; } }
