@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='vendor/normalize.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,700" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     </head>
     <body>
         <!--[if lte IE 9]>
@@ -26,72 +27,26 @@
             <div class="wrapper">
                 <div class="chat-wrapper">
                     <div class="msg-panel-wrapper">
-                        <div class="msg-panel-header"></div>
-                        <div class="msg-panel-bottom"></div>
-                        <div class="msg-panel-body">
+                        <div class="msg-panel-header">
+                            <div class="left"></div>
+                            <div class="center"></div>
+                            <div class="right"><button id="optionsButton" class="options-button"><i class="fa fa-ellipsis-v"></i></button></div>
+                        </div>
+                        <div class="msg-panel-bottom">
+                            <div class="center">
+                                <textarea id="inputFld" name="inputFld" class="input-fld" rows="2" placeholder="Type a message"></textarea>
+                                <!-- <input type="text" placeholder="Type a message"> -->
+                            </div>
+                            <div class="left">
+                                <button id="skipButton" class="skip-button"><i class="fa fa-thumbs-down fa-2x"></i></button>
+                            </div>
+                            <div class="right">
+                                <button id="sendButton" class="send-button"><i class="fa fa-telegram fa-2x"></i></button>
+                            </div>
+                        </div>
+                        <div id="msgPanelBody" class="msg-panel-body">
                             
-
-                            <div class="row alert">
-                                <div class="msg alert">
-                                    <p>Irure eu voluptate irure ea deserunt id in ea ea nulla fugiat irure occaecat in ut ad ut ullamco.</p>
-                                </div>
-                            </div>
-
-                            <div class="row they">
-                                <div class="msg they">
-                                    <p><strong>Stranger:</strong></p>
-                                    <p>Do nostrud non aliquip sint duis nisi elit non qui anim deserunt culpa ut duis ea in dolore aute occaecat eiusmod culpa velit sit nostrud incididunt sint aliqua dolor.</p>
-                                </div>
-                            </div>
-
-                            <div class="row me">
-                                <div class="msg me">
-                                    <p><strong>Me:</strong></p>
-                                    <p>Lorem ipsum qui sunt ut pariatur et nulla ut nulla deserunt id officia reprehenderit commodo aliqua proident est minim.</p>
-                                </div>
-                            </div>
-
-                            <div class="row they">
-                                <div class="msg they">
-                                    <p><strong>Stranger:</strong></p>
-                                    <p>Officia tempor occaecat dolore duis excepteur anim ut est voluptate laboris ad officia voluptate veniam exercitation commodo laboris quis elit consectetur do dolor amet enim dolor laboris laborum ut magna cupidatat non quis dolore qui ea nisi consequat quis commodo voluptate est do magna consequat irure ut pariatur tempor in ut do nostrud dolor elit aute in sed sed non amet adipisicing aliquip qui occaecat non cupidatat dolore nulla sit nostrud sit id in mollit irure cillum nulla ad aliqua officia laborum voluptate dolor pariatur ea cillum esse sed pariatur quis in nulla velit duis voluptate dolor eiusmod tempor culpa dolore velit ut eiusmod in aliquip magna officia et officia dolor voluptate sit aute in est duis cillum aute ullamco eiusmod dolor officia cillum officia voluptate commodo dolore labore id ut velit voluptate veniam pariatur reprehenderit eu ut adipisicing incididunt cillum magna consectetur consectetur esse sed dolor ut sunt nostrud cupidatat proident minim in in ea consectetur sit nulla quis adipisicing eiusmod labore do ut sit ut consequat ea anim incididunt nisi reprehenderit ex deserunt anim eu adipisicing sunt fugiat est quis sed nostrud sunt esse elit dolor in veniam mollit ullamco ea in excepteur elit elit cupidatat commodo dolor consequat consequat adipisicing minim amet laboris excepteur nulla elit ut aliquip mollit dolor ullamco minim esse irure sed proident in adipisicing reprehenderit fugiat enim est in amet deserunt amet in eiusmod eiusmod ullamco in mollit officia ex reprehenderit exercitation do nulla anim veniam cupidatat veniam deserunt magna aliquip commodo eu nostrud ex magna consequat sed id quis qui elit nisi incididunt irure proident aliqua veniam.</p>
-                                </div>
-                            </div>
-
-                            <div class="row me">
-                                <div class="msg me">
-                                    <p><strong>Me:</strong></p>
-                                    <p>Lorem ipsum qui sunt ut pariatur et nulla ut nulla deserunt id officia reprehenderit commodo aliqua proident est minim.</p>
-                                </div>
-                            </div>
-
-                            <div class="row they">
-                                <div class="msg they">
-                                    <p><strong>Stranger:</strong></p>
-                                    <p>Lorem ipsum qui sunt ut pariatur et nulla ut nulla deserunt id officia reprehenderit commodo aliqua proident est minim.</p>
-                                </div>
-                            </div>
-
-                            <div class="row me">
-                                <div class="msg me">
-                                    <p><strong>Me:</strong></p>
-                                    <p>Lorem ipsum qui sunt ut pariatur et nulla ut nulla deserunt id officia reprehenderit commodo aliqua proident est minim.</p>
-                                </div>
-                            </div>
-
-                            <div class="row they">
-                                <div class="msg they">
-                                    <p><strong>Stranger:</strong></p>
-                                    <p>Lorem ipsum qui sunt ut pariatur et nulla ut nulla deserunt id officia reprehenderit commodo aliqua proident est minim.</p>
-                                </div>
-                            </div>
-
-                            <div class="row me">
-                                <div class="msg me">
-                                    <p><strong>Me:</strong></p>
-                                    <p>Lorem ipsum qui sunt ut pariatur et nulla ut nulla deserunt id officia reprehenderit commodo aliqua proident est minim.</p>
-                                </div>
-                            </div>
+                            <!-- Here goes the message rows -->
 
                         </div>
                     </div>

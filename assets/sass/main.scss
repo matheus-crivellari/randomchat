@@ -9,6 +9,8 @@ $msg_me_bgc 	: $color6;
 $msg_they_bgc 	: $color5;
 $msg_alert_bgc 	: $color9;
 
+$send_button_icon_color : $color1;
+
 html, body{
 	background: $background_color;
 	font-family: 'Roboto', sans-serif;
@@ -132,6 +134,70 @@ html, body{
 			    					text-align: center;
 			    				}
 			    			}
+			    		}
+			    	}
+
+			    	div.msg-panel-header, div.msg-panel-bottom {
+			    		div.left, div.center, div.right {
+			    			height: 60px;
+			    			box-sizing: border-box;
+			    		}
+
+			    		div.center{
+			    			width:100%;
+			    			// background-color: green;
+			    			padding: 5px 70px;
+
+			    			textarea{
+								width: 100%;
+								height: 100%;
+								outline: none;
+								border: none;
+								padding: 10px;
+								box-sizing: border-box;
+								border-radius: 3px;
+								background-color: #fff;
+								resize: none;
+
+								font-weight: 700;
+								color: $color1;
+			    			}
+			    		}
+
+			    		div.left, div.right {
+			    			position: absolute;
+			    			top: 0;
+			    			width: 60px;
+
+			    			&.left{
+			    				left: 0;
+
+			    				button.skip-button{
+			    					width: 100%;
+			    					height: 100%;
+
+									outline: none;
+									border: none;
+									background-color: transparent;
+									color: $color7;
+			    				}
+			    			}
+
+			    			&.right{
+			    				padding: 5px;
+			    				right: 0;
+
+			    				button.send-button, button.options-button{
+			    					width: 100%;
+			    					height: 100%;
+
+									outline: none;
+									border: none;
+									background-color: transparent;
+									color: $send_button_icon_color;
+			    				}
+			    			}
+
 			    		}
 			    	}
 			    }
