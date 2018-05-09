@@ -99,6 +99,19 @@
 			},
 		},
 
+		socket : {
+			/**
+			 * Send the message through scoket.
+			 * @todo Must do.
+			 */
+			send : function (msg) {
+				console.warn('Send this through socket. ', msg, 'Must be implemented!');
+			},
+
+			receive : function () {
+			},
+		},
+
 		/**
 		 * Callback fired when key is released
 		 * while input field is focussed.
@@ -136,8 +149,9 @@
 		sendMessage : function () {
 			var msgString = inputFld.value;
 			inputFld.value = '';
-			Chat.render.msg.me(msgString);
 			Chat.scroll.bottom();
+			Chat.render.msg.me(msgString);
+			Chat.socket.send(msgString);
 		},
 
 		/**
