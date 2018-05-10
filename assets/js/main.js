@@ -4,6 +4,8 @@
 	var inputFld 	= document.getElementById('inputFld');
 	var sendButton 	= document.getElementById('sendButton');
 
+	var sio;
+
 	/**
 	 * Strings with message templates
 	 */
@@ -100,12 +102,20 @@
 		},
 
 		socket : {
+			_namespace : '/chat',
+
+			connect : function () {
+				console.log('Initializing socket.');
+				sio = io.connect('http://' + document.domain + ':' + location.port + this._namespace);
+				console.log('Socket up: ', sio);
+			},
 			/**
 			 * Send the message through scoket.
 			 * @todo Must do.
 			 */
 			send : function (msg) {
-				console.warn('Send this through socket. ', msg, 'Must be implemented!');
+				// console.warn('Send this through socket. ', msg, 'Must be implemented!');
+				sio.emit('chat_message',{msg:msg});
 			},
 
 			receive : function () {
@@ -169,6 +179,7 @@
 			inputFld.addEventListener('keydown', Chat.onKeyDown);
 			inputFld.addEventListener('keyup', Chat.onKeyUp);
 			sendButton.addEventListener('click', Chat.sendButtonClicked);
+			Chat.socket.connect();
 		},
 	};
 
