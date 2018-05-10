@@ -109,16 +109,20 @@
 				sio = io.connect('http://' + document.domain + ':' + location.port + this._namespace);
 				console.log('Socket up: ', sio);
 			},
+
 			/**
-			 * Send the message through scoket.
-			 * @todo Must do.
+			 * Send the text message through scoket.
 			 */
 			send : function (msg) {
-				// console.warn('Send this through socket. ', msg, 'Must be implemented!');
-				sio.emit('chat_message',{msg:msg});
+				sio.send(msg);
 			},
 
-			receive : function () {
+			/**
+			 * Receives a text message from socket.
+			 */
+			receive : function (msg) {
+				Chat.render.msg.they(msg);
+				Chat.scroll.bottom();
 			},
 		},
 
@@ -159,9 +163,9 @@
 		sendMessage : function () {
 			var msgString = inputFld.value;
 			inputFld.value = '';
-			Chat.scroll.bottom();
 			Chat.render.msg.me(msgString);
 			Chat.socket.send(msgString);
+			Chat.scroll.bottom();
 		},
 
 		/**
@@ -179,7 +183,9 @@
 			inputFld.addEventListener('keydown', Chat.onKeyDown);
 			inputFld.addEventListener('keyup', Chat.onKeyUp);
 			sendButton.addEventListener('click', Chat.sendButtonClicked);
+
 			Chat.socket.connect();
+			sio.on('message', Chat.socket.receive);
 		},
 	};
 
@@ -191,6 +197,7 @@
 	 */
 	window.expose = {
 		Chat : Chat,
+		sio : sio,
 	}
 
 })(window);
