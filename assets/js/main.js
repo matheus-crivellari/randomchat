@@ -131,6 +131,30 @@
 			},
 		},
 
+		input : {
+			/**
+			 * Disable all chat input.
+			 */
+			disable : function () {
+				inputFld.disabled = 'disabled';
+				$(inputFld).addClass('disabled');
+
+				sendButton.disabled = true;
+				$(sendButton).addClass('disabled');
+			},
+
+			/**
+			 * Enable all chat input.
+			 */
+			enable : function () {
+				inputFld.disabled = false;
+				$(inputFld).removeClass('disabled');
+
+				sendButton.disabled = false;
+				$(sendButton).removeClass('disabled');
+			},
+		},
+
 		/**
 		 * Callback fired when key is released
 		 * while input field is focussed.
@@ -191,10 +215,33 @@
 
 			Chat.socket.connect();
 			sio.on('message', Chat.socket.receive);
+
+			sio.on('pairfound', function (data) {
+				console.log('pairfound');
+				Chat.socket.alert(data.msg);
+				Chat.scroll.bottom();
+				// Enable inputs once pair is connected.
+				Chat.input.enable();
+			});
+
+			sio.on('pairlost', function (data) {
+				console.log('pairlost');
+				Chat.socket.alert(data.msg);
+				Chat.scroll.bottom();
+				// Disable inputs after pair disconnected.
+				Chat.input.disable();
+			});
+
 			sio.on('alert', function (data) {
+				console.log('alert');
 				Chat.socket.alert(data.msg);
 				Chat.scroll.bottom();
 			});
+
+			// Disable inputs until pair is connected.
+			Chat.input.disable();
+
+			Chat.render.msg.alert('Connecting to someone...');
 		},
 	};
 

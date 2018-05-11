@@ -66,8 +66,14 @@ def on_connect(sid, environ):
 		i = tp[1]
 		if(pairs[i][0] is None):
 			pairs[i][0] = sid
-		else:
+		elif(pairs[i][1] is None):
 			pairs[i][1] = sid
+
+		if(pairs[i][0] is not None):
+			sio.emit('pairfound', data={'msg':'You\'re now chatting with a random stranger. Say hello!'}, room=pairs[i][0], namespace='/chat')
+
+		if(pairs[i][1] is not None):
+			sio.emit('pairfound', data={'msg':'You\'re now chatting with a random stranger. Say hello!'}, room=pairs[i][1], namespace='/chat')
 	else:
 		pairs.append([sid,None])
 
@@ -79,11 +85,12 @@ def on_chat_message(sid, data):
 
 	msg = data
 	nsid = find_pair(sid,pairs)
-	# Loggin the event to the console
-	print('{} to {}: '.format(sid, nsid, msg))
 
-	# Sending message to actual recipient (only if recipient is not None)
 	if(nsid):
+		# Loggin the event to the console
+		print('{} to {}: '.format(sid, nsid, msg))
+
+		# Sending message to actual recipient (only if recipient is not None)
 		sio.send(msg, room=nsid, namespace='/chat')
 
 @sio.on('skip', namespace='/chat')
@@ -96,7 +103,7 @@ def on_disconnect(sid):
 	print('Notify {} that stranger left and remove stranger.'.format(psid))
 	# Sending alert to actual recipient (only if recipient is not None)
 	if(psid):
-		sio.emit('alert', data={'msg':'Stranger left the conversation.'}, room=psid, namespace='/chat')
+		sio.emit('pairlost', data={'msg':'Stranger left the conversation.'}, room=psid, namespace='/chat')
 	
 	remove_from_pair(sid, pairs)
 

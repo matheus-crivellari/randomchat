@@ -114,6 +114,10 @@ html, body {
               resize: none;
               font-weight: 700;
               color: #009688; }
+              html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-header div.center textarea.disabled, html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-bottom div.center textarea.disabled, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-header div.center textarea.disabled, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-bottom div.center textarea.disabled {
+                opacity: .5;
+                pointer-events: none;
+                cursor: not-allowed; }
           html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-header div.left, html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-header div.right, html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-bottom div.left, html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-bottom div.right, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-header div.left, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-header div.right, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-bottom div.left, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-bottom div.right {
             position: absolute;
             top: 0;
@@ -137,6 +141,10 @@ html, body {
                 border: none;
                 background-color: transparent;
                 color: #009688; }
+                html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-header div.left.right button.send-button.send-button.disabled, html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-header div.left.right button.options-button.send-button.disabled, html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-header div.right.right button.send-button.send-button.disabled, html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-header div.right.right button.options-button.send-button.disabled, html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-bottom div.left.right button.send-button.send-button.disabled, html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-bottom div.left.right button.options-button.send-button.disabled, html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-bottom div.right.right button.send-button.send-button.disabled, html div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-bottom div.right.right button.options-button.send-button.disabled, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-header div.left.right button.send-button.send-button.disabled, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-header div.left.right button.options-button.send-button.disabled, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-header div.right.right button.send-button.send-button.disabled, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-header div.right.right button.options-button.send-button.disabled, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-bottom div.left.right button.send-button.send-button.disabled, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-bottom div.left.right button.options-button.send-button.disabled, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-bottom div.right.right button.send-button.send-button.disabled, body div.main div.wrapper div.chat-wrapper div.msg-panel-wrapper div.msg-panel-bottom div.right.right button.options-button.send-button.disabled {
+                  opacity: .5;
+                  pointer-events: none;
+                  cursor: not-allowed; }
 
 @media screen and (max-width: 1024px) {
   html div.main div.wrapper, body div.main div.wrapper {
