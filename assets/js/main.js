@@ -124,6 +124,11 @@
 				Chat.render.msg.they(msg);
 				Chat.scroll.bottom();
 			},
+
+			alert : function (msg) {
+				console.log('alert: ', msg);
+				Chat.render.msg.alert(msg);
+			},
 		},
 
 		/**
@@ -186,6 +191,10 @@
 
 			Chat.socket.connect();
 			sio.on('message', Chat.socket.receive);
+			sio.on('alert', function (data) {
+				Chat.socket.alert(data.msg);
+				Chat.scroll.bottom();
+			});
 		},
 	};
 
