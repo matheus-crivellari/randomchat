@@ -90,6 +90,13 @@
 				}
 			},
 
+			/**
+			 * Clear message panel messages
+			 */
+			clear : function () {
+				msgPanel.innerHTML = '';
+			},
+
 			// Message shortcut namespace for easing access to message rendering methods
 			msg : {
 				me : function (msg) {
@@ -105,6 +112,7 @@
 					Chat.render.message(MessageTemplate.customAlert,msg,ico);
 				}
 			},
+			
 		},
 
 		// Scroll namespace for message panel scrolling related methods
@@ -169,6 +177,7 @@
 			 */
 			onPairFound : function (data) {
 				console.log('onPairFound');
+				Chat.render.clear();
 				Chat.render.msg.alert(data.msg);
 				Chat.scroll.bottom();
 				// Enable inputs once pair is connected.
