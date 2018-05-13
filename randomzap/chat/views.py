@@ -3,6 +3,16 @@ from randomzap.settings import settings
 
 import socketio
 
+# Configuration
+# Event table
+# Default built-in SocketIO events are not in the table
+EVENTS = {
+	'PAIRFOUND' : 'pairfound',
+	'PAIRLOST'  : 'pairlost',
+	'ALERT' 	: 'alert',
+	'SKIP'  	: 'skip',
+}
+
 chat = Blueprint('chat', __name__, template_folder='templates', static_folder='static')
 sio  = socketio.Server()
 
@@ -70,10 +80,10 @@ def on_connect(sid, environ):
 			pairs[i][1] = sid
 
 		if(pairs[i][0] is not None):
-			sio.emit('pairfound', data={'msg':'You\'re now chatting with a random stranger. Say hello!'}, room=pairs[i][0], namespace='/chat')
+			sio.emit(EVENTS['PAIRFOUND'], data={'msg':'You\'re now chatting with a random stranger. Say hello!'}, room=pairs[i][0], namespace='/chat')
 
 		if(pairs[i][1] is not None):
-			sio.emit('pairfound', data={'msg':'You\'re now chatting with a random stranger. Say hello!'}, room=pairs[i][1], namespace='/chat')
+			sio.emit(EVENTS['PAIRFOUND'], data={'msg':'You\'re now chatting with a random stranger. Say hello!'}, room=pairs[i][1], namespace='/chat')
 	else:
 		pairs.append([sid,None])
 
@@ -93,7 +103,7 @@ def on_chat_message(sid, data):
 		# Sending message to actual recipient (only if recipient is not None)
 		sio.send(msg, room=nsid, namespace='/chat')
 
-@sio.on('skip', namespace='/chat')
+@sio.on(EVENTS['SKIP'], namespace='/chat')
 def on_skip(sid):
 	print('{} skipped conversation.'.format(sid))
 
@@ -103,7 +113,7 @@ def on_disconnect(sid):
 	print('Notify {} that stranger left and remove stranger.'.format(psid))
 	# Sending alert to actual recipient (only if recipient is not None)
 	if(psid):
-		sio.emit('pairlost', data={'msg':'Stranger left the conversation.'}, room=psid, namespace='/chat')
+		sio.emit(EVENTS['PAIRLOST'], data={'msg':'Stranger left the conversation.'}, room=psid, namespace='/chat')
 	
 	remove_from_pair(sid, pairs)
 

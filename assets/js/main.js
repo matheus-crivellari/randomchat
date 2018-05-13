@@ -14,6 +14,7 @@
 			ALERT : '<i class="fa fa-lightbulb-o"></i>',
 			LOAD  : '<i class="fa fa-circle-o-notch fa-spin"></i>',
 		},
+
 		// Alert template
 		alert : '<div class="row alert"> \
 			        <div class="msg alert"> \
@@ -64,7 +65,7 @@
 			},
 		},
 
-		// Render namespace
+		// Render namespace for message rendering related methods
 		render : {
 			// Renders a message based on a template
 			message : function (template, msg, ico) {
@@ -89,7 +90,7 @@
 				}
 			},
 
-			// Message namespace
+			// Message shortcut namespace for easing access to message rendering methods
 			msg : {
 				me : function (msg) {
 					Chat.render.message(MessageTemplate.me,msg);
@@ -106,7 +107,7 @@
 			},
 		},
 
-		// Scroll namespace
+		// Scroll namespace for message panel scrolling related methods
 		scroll : {
 			top : function () {
 				msgPanel.scrollTop = 0;
@@ -117,8 +118,20 @@
 			},
 		},
 
+		// Socket namespace for icoming socket packet handling related methods
 		socket : {
 			_namespace : '/chat',
+
+			/**
+			 * EVENT TABLE
+			 * Default built-in SocketIO events are not in the table
+			 */
+			events : {
+				PAIRFOUND 	: 'pairfound',
+				PAIRLOST 	: 'pairlost',
+				ALERT 		: 'alert',
+				SKIP  		: 'skip',
+			},
 
 			connect : function () {
 				console.log('Initializing socket.');
@@ -177,6 +190,7 @@
 
 		},
 
+		// Input namespace for input management related methods
 		input : {
 			/**
 			 * Disable all chat input.
@@ -262,15 +276,15 @@
 			Chat.socket.connect();
 			sio.on('message', Chat.socket.receive);
 
-			sio.on('pairfound', function (data) {
+			sio.on(Chat.socket.events.PAIRFOUND, function (data) {
 				Chat.socket.onPairFound(data);
 			});
 
-			sio.on('pairlost', function (data) {
+			sio.on(Chat.socket.events.PAIRLOST, function (data) {
 				Chat.socket.onPairLost(data);
 			});
 
-			sio.on('alert', function (data) {
+			sio.on(Chat.socket.events.ALERT, function (data) {
 				console.log('alert');
 				if(data.type){
 					Chat.socket.alert(data.msg, data.type);
