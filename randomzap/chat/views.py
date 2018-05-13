@@ -2,6 +2,7 @@ from flask import Blueprint, render_template
 from randomzap.settings import settings
 
 import socketio
+import random
 
 # Configuration
 # Event table
@@ -49,12 +50,12 @@ def remove_from_pair(sid, pairs):
 	for i in range(0,len(pairs)):
 		if(isinstance(pairs[i], list)):
 			if(pairs[i][0] == sid):
-				pairs[i][0] = None
+				pairs[i][0] = 'EMPTY'
 				print('Pairs: ', pairs)
 				return
 
 			elif(pairs[i][1] == sid):
-				pairs[i][1] = None
+				pairs[i][1] = 'EMPTY'
 				print('Pairs: ', pairs)
 				return
 
@@ -62,6 +63,16 @@ def remove_from_pair(sid, pairs):
 				pass
 
 			print('Not found')
+
+# Add sid to a pair in pairs
+def add_to_pair(sid,pairs,index):
+	i = index
+	if(pairs[i][0] is None):
+		pairs[i][0] = sid
+	elif(pairs[i][1] is None):
+		pairs[i][1] = sid
+
+	return pairs[i]
 
 @chat.route('/chat')
 def chat_index():
@@ -72,20 +83,18 @@ def on_connect(sid, environ):
 	print('Connected {}'.format(sid))
 
 	tp = first_available_pair(pairs)
-	if(tp):
-		i = tp[1]
-		if(pairs[i][0] is None):
-			pairs[i][0] = sid
-		elif(pairs[i][1] is None):
-			pairs[i][1] = sid
+	if(tp): # If found an available pair
+		pair = add_to_pair(sid, pairs, tp[1]) # Add new sid to pair
 
-		if(pairs[i][0] is not None):
-			sio.emit(EVENTS['PAIRFOUND'], data={'msg':'You\'re now chatting with a random stranger. Say hello!'}, room=pairs[i][0], namespace='/chat')
+		if(pair): # If successfuly added to pair send PAIRFOUND event to both sids
+			if(pair[0] is not None): 
+				sio.emit(EVENTS['PAIRFOUND'], data={'msg':'You\'re now chatting with a random stranger. Say hello!'}, room=pair[0], namespace='/chat')
 
-		if(pairs[i][1] is not None):
-			sio.emit(EVENTS['PAIRFOUND'], data={'msg':'You\'re now chatting with a random stranger. Say hello!'}, room=pairs[i][1], namespace='/chat')
+			if(pair[1] is not None):
+				sio.emit(EVENTS['PAIRFOUND'], data={'msg':'You\'re now chatting with a random stranger. Say hello!'}, room=pair[1], namespace='/chat')
+
 	else:
-		pairs.append([sid,None])
+		pairs.append([sid, None])
 
 	print('Pairs: ', pairs)
 
@@ -106,6 +115,54 @@ def on_chat_message(sid, data):
 @sio.on(EVENTS['SKIP'], namespace='/chat')
 def on_skip(sid):
 	print('{} skipped conversation.'.format(sid))
+
+	# Finds this sid pair
+	psid = find_pair(sid, pairs)
+	if(psid):
+		# Notifies him/her about pair lost
+		sio.emit(EVENTS['PAIRLOST'], data={'msg':'Stranger left the conversation.'}, room=psid, namespace='/chat')
+	
+	# Removes this sid from pair
+	remove_from_pair(sid, pairs)
+
+	# Shuffles pairs list before finding another pair to this sid
+	random.shuffle(pairs)
+
+	# Tries to find another pair
+	tp = first_available_pair(pairs)
+
+	# If found another pair
+	if(tp):
+		# Adds this sid to new pair
+		pair = add_to_pair(sid, pairs, tp[1])
+
+		# If successfuly added send notify both sids about new match
+		if(pair): 
+			if(pair[0] is not None): 
+				sio.emit(EVENTS['PAIRFOUND'], data={'msg':'You\'re now chatting with a random stranger. Say hello!'}, room=pair[0], namespace='/chat')
+
+			if(pair[1] is not None):
+				sio.emit(EVENTS['PAIRFOUND'], data={'msg':'You\'re now chatting with a random stranger. Say hello!'}, room=pair[1], namespace='/chat')
+
+	# If not found
+	else:
+		# Appends this sid to a new index in 
+		# pairs list with an empty pair
+		# in order to make this pairable again
+		pairs.append([sid, None])
+
+
+	# Must implement a check for ['EMPTY', 'EMPTY']
+	# indexes in pairs list and clear them in order 
+	# to free memory.
+	# TO-DO
+	# 
+	# Must implement a trhead safe logic here
+	# in order keep things ok.
+	# TO-DO
+
+	print('Pairs: ', pairs)
+
 
 @sio.on('disconnect', namespace='/chat')
 def on_disconnect(sid):
