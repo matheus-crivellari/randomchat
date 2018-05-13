@@ -10,12 +10,22 @@
 	 * Strings with message templates
 	 */
 	var MessageTemplate = {
+		icon : {
+			ALERT : '<i class="fa fa-lightbulb-o"></i>',
+			LOAD  : '<i class="fa fa-circle-o-notch fa-spin"></i>',
+		},
 		// Alert template
 		alert : '<div class="row alert"> \
 			        <div class="msg alert"> \
 			            <p><i class="fa fa-lightbulb-o"></i> {msg}</p> \
 			        </div>\
 			    </div>',
+
+	    customAlert : 	'<div class="row alert"> \
+					        <div class="msg alert"> \
+					            <p>{ico} {msg}</p> \
+					        </div>\
+					    </div>',
 
 		they : '<div class="row they">\
 					<div class="msg they">\
@@ -57,18 +67,23 @@
 		// Render namespace
 		render : {
 			// Renders a message based on a template
-			message : function (template, msg) {
-				if(template && msg){
-					if(msg.indexOf('\n') != -1){
-						msg = msg.split('\n');
-						msg = '<p>' + msg.join('</p><p>') + '</p>';
-					}else{
-						console.log('Tem \n');
-						msg = '<p>' + msg + '</p>';
+			message : function (template, msg, ico) {
+				if(template && msg) {
+					if(template != MessageTemplate.alert && template != MessageTemplate.customAlert){
+						if(msg.indexOf('\n') != -1){
+							msg = msg.split('\n');
+							msg = '<p>' + msg.join('</p><p>') + '</p>';
+						}else{
+							console.log('Tem \n');
+							msg = '<p>' + msg + '</p>';
+						}
 					}
 
 					// Replaces {msg} token for desired message
 					var s = template.replace('{msg}', msg);
+					if(template == MessageTemplate.customAlert && ico){
+						s = s.replace('{ico}', ico);
+					}
 					var msgDOM = $(s);
 					$(msgPanel).append(msgDOM);
 				}
@@ -84,8 +99,9 @@
 					Chat.render.message(MessageTemplate.they,msg);
 				},
 
-				alert : function (msg) {
-					Chat.render.message(MessageTemplate.alert,msg);
+				alert : function (msg, ico) {
+					ico = ico == undefined ? MessageTemplate.icon.ALERT : ico;
+					Chat.render.message(MessageTemplate.customAlert,msg,ico);
 				}
 			},
 		},
@@ -125,10 +141,27 @@
 				Chat.scroll.bottom();
 			},
 
-			alert : function (msg) {
+			alert : function (msg, ico) {
 				console.log('alert: ', msg);
 				Chat.render.msg.alert(msg);
 			},
+
+			onPairFound : function (data) {
+				console.log('onPairFound');
+				Chat.render.msg.alert(data.msg);
+				Chat.scroll.bottom();
+				// Enable inputs once pair is connected.
+				Chat.input.enable();
+			},
+
+			onPairLost : function (data) {
+				console.log('pairlost');
+				Chat.render.msg.alert(data.msg);
+				Chat.scroll.bottom();
+				// Disable inputs after pair disconnected.
+				Chat.input.disable();
+			},
+
 		},
 
 		input : {
@@ -217,31 +250,27 @@
 			sio.on('message', Chat.socket.receive);
 
 			sio.on('pairfound', function (data) {
-				console.log('pairfound');
-				Chat.socket.alert(data.msg);
-				Chat.scroll.bottom();
-				// Enable inputs once pair is connected.
-				Chat.input.enable();
+				Chat.socket.onPairFound(data);
 			});
 
 			sio.on('pairlost', function (data) {
-				console.log('pairlost');
-				Chat.socket.alert(data.msg);
-				Chat.scroll.bottom();
-				// Disable inputs after pair disconnected.
-				Chat.input.disable();
+				Chat.socket.onPairLost(data);
 			});
 
 			sio.on('alert', function (data) {
 				console.log('alert');
-				Chat.socket.alert(data.msg);
+				if(data.type){
+					Chat.socket.alert(data.msg, data.type);
+				}else{
+					Chat.socket.alert(data.msg);
+				}
 				Chat.scroll.bottom();
 			});
 
 			// Disable inputs until pair is connected.
 			Chat.input.disable();
 
-			Chat.render.msg.alert('Connecting to someone...');
+			Chat.render.msg.alert('Connecting to someone...', MessageTemplate.icon.LOAD);
 		},
 	};
 
@@ -253,6 +282,7 @@
 	 */
 	window.expose = {
 		Chat : Chat,
+		MessageTemplate : MessageTemplate,
 		sio : sio,
 	}
 
