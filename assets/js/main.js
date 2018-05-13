@@ -141,11 +141,19 @@
 				Chat.scroll.bottom();
 			},
 
+			/**
+			 * Receives an alert from socket
+			 */
 			alert : function (msg, ico) {
 				console.log('alert: ', msg);
 				Chat.render.msg.alert(msg);
 			},
 
+			/**
+			 * Receives an onPairFound event from socket.
+			 * That means someone is connected 
+			 * and ready to start chatting.
+			 */
 			onPairFound : function (data) {
 				console.log('onPairFound');
 				Chat.render.msg.alert(data.msg);
@@ -154,6 +162,11 @@
 				Chat.input.enable();
 			},
 
+			/**
+			 * Receives an onPairLost event from socket.
+			 * That means stranger has disconnected and
+			 * current user must search for another pair.
+			 */
 			onPairLost : function (data) {
 				console.log('pairlost');
 				Chat.render.msg.alert(data.msg);
