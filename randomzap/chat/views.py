@@ -3,6 +3,7 @@ from randomzap.settings import settings
 
 import socketio
 import random
+import logging
 
 # Configuration
 # Event table
@@ -17,18 +18,30 @@ EVENTS = {
 chat = Blueprint('chat', __name__, template_folder='templates', static_folder='static')
 sio  = socketio.Server()
 
+# Disable logs temporarily
+# not meant for production
+sio.logger.setLevel(logging.NOTSET)
+
 pairs = []
 
 # Returns a tuple containing the 
-# firts non-full pair and its index
-# or None if no non-full pair found
+# firts non-full and non-empty pair 
+# and its index.
+# Returns None if no non-full 
+# and non-empty pair found.
 def first_available_pair(pairs):
 	for i in range(0,len(pairs)):
 		if(isinstance(pairs[i], list)):
-			if(pairs[i][0] is None or pairs[i][1] is None):
-				return (pairs[i], i)
+			if(pairs[i][0] is None or pairs[i][0] == 'EMPTY'):
+				if(pairs[i][1] is None or pairs[i][1] == 'EMPTY'):
+					pass
+				else:
+					return (pairs[i], i)
 			else:
-				pass
+				if(pairs[i][1] is None or pairs[i][1] == 'EMPTY'):
+					return (pairs[i], i)
+				else:
+					pass
 	return None
 
 # Returns the respective pair sid for 
@@ -65,7 +78,7 @@ def remove_from_pair(sid, pairs):
 			print('Not found')
 
 # Add sid to a pair in pairs
-def add_to_pair(sid,pairs,index):
+def add_to_pair(sid, pairs, index):
 	i = index
 	if(pairs[i][0] is None):
 		pairs[i][0] = sid
@@ -83,14 +96,13 @@ def on_connect(sid, environ):
 	print('Connected {}'.format(sid))
 
 	tp = first_available_pair(pairs)
+
 	if(tp): # If found an available pair
 		pair = add_to_pair(sid, pairs, tp[1]) # Add new sid to pair
 
 		if(pair): # If successfuly added to pair send PAIRFOUND event to both sids
-			if(pair[0] is not None): 
+			if(pair[0] is not None and pair[1] is not None): 
 				sio.emit(EVENTS['PAIRFOUND'], data={'msg':'You\'re now chatting with a random stranger. Say hello!'}, room=pair[0], namespace='/chat')
-
-			if(pair[1] is not None):
 				sio.emit(EVENTS['PAIRFOUND'], data={'msg':'You\'re now chatting with a random stranger. Say hello!'}, room=pair[1], namespace='/chat')
 
 	else:
@@ -107,7 +119,7 @@ def on_chat_message(sid, data):
 
 	if(nsid):
 		# Loggin the event to the console
-		print('{} to {}: '.format(sid, nsid, msg))
+		print('{} to {}: {}'.format(sid, nsid, msg))
 
 		# Sending message to actual recipient (only if recipient is not None)
 		sio.send(msg, room=nsid, namespace='/chat')
@@ -169,8 +181,7 @@ def on_disconnect(sid):
 	psid = find_pair(sid, pairs)
 	print('Notify {} that stranger left and remove stranger.'.format(psid))
 	# Sending alert to actual recipient (only if recipient is not None)
-	if(psid):
-		sio.emit(EVENTS['PAIRLOST'], data={'msg':'Stranger left the conversation.'}, room=psid, namespace='/chat')
-	
 	remove_from_pair(sid, pairs)
 
+	if(psid):
+		sio.emit(EVENTS['PAIRLOST'], data={'msg':'Stranger left the conversation.'}, room=psid, namespace='/chat')
