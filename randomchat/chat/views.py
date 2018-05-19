@@ -99,8 +99,8 @@ def add_to_pair(sid, pairs, index):
 def free_space(pairs):
 	t_list = []
 
-	# Find pairs indexes to be removed and stores
-	# them into a temp list
+	# Find pairs indexes to be removed 
+	# and stores them into a temp list
 	for i in range(0, len(pairs)):
 		if(isinstance(pairs[i], list)):
 			if(pairs[i][0] == 'EMPTY' and pairs[i][1] == 'EMPTY'):
@@ -113,7 +113,7 @@ def free_space(pairs):
 	cnt = len(t_list)
 	print('Found {} itens to remove', cnt)
 
-	# Removes found itens
+	# Removes itens found
 	for i in range(0, len(t_list)):
 		pairs.remove(t_list[i])
 
