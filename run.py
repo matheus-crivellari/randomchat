@@ -1,8 +1,8 @@
 from flask import Flask, Blueprint
-from randomzap.home.views import home
-from randomzap.chat.views import chat
+from randomchat.home.views import home
+from randomchat.chat.views import chat
 
-from randomzap.chat.views import sio
+from randomchat.chat.views import sio
 import socketio
 import eventlet
 import eventlet.wsgi

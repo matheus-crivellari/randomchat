@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from randomzap.settings import settings
+from randomchat.settings import settings
 
 import socketio
 import random
@@ -31,24 +31,31 @@ pairs = []
 # and non-empty pair found.
 def first_available_pair(pairs):
 	for i in range(0,len(pairs)):
-		if(isinstance(pairs[i], list)):
-			if(pairs[i][0] is None or pairs[i][0] == 'EMPTY'):
-				if(pairs[i][1] is None or pairs[i][1] == 'EMPTY'):
+		if(pairs[i] and isinstance(pairs[i], list)):
+			pair = pairs[i]
+			
+			if (pair[0] is None and pair[1] is not None): # First is available and second is a user
+				if(pair[1] == 'EMPTY'):
 					pass
 				else:
-					return (pairs[i], i)
+					return (pair, i)
+
+			elif (pair[0] is not None and pair[1] is None): # First is a user and second is available
+				if(pair[0] == 'EMPTY'):
+					pass
+				else:
+					return (pair, i)
+
 			else:
-				if(pairs[i][1] is None or pairs[i][1] == 'EMPTY'):
-					return (pairs[i], i)
-				else:
-					pass
+				pass
+
 	return None
 
 # Returns the respective pair sid for 
 # given sid. Returns None if not found.
 def find_pair(sid, pairs):
 	for i in range(0,len(pairs)):
-		if(isinstance(pairs[i], list)):
+		if(pairs[i] and isinstance(pairs[i], list)):
 			if(pairs[i][0] == sid):
 				return pairs[i][1]
 			elif(pairs[i][1] == sid):
@@ -61,21 +68,22 @@ def find_pair(sid, pairs):
 # another user.
 def remove_from_pair(sid, pairs):
 	for i in range(0,len(pairs)):
-		if(isinstance(pairs[i], list)):
+		if(pairs[i] and isinstance(pairs[i], list)):
 			if(pairs[i][0] == sid):
 				pairs[i][0] = 'EMPTY'
+				print('User removed.')
 				print('Pairs: ', pairs)
 				return
 
 			elif(pairs[i][1] == sid):
 				pairs[i][1] = 'EMPTY'
+				print('User removed.')
 				print('Pairs: ', pairs)
 				return
 
 			else:
+				print('No user removed.')
 				pass
-
-			print('Not found')
 
 # Add sid to a pair in pairs
 def add_to_pair(sid, pairs, index):
@@ -86,6 +94,30 @@ def add_to_pair(sid, pairs, index):
 		pairs[i][1] = sid
 
 	return pairs[i]
+
+# Free space removing pairs with both spaces EMPTY
+def free_space(pairs):
+	t_list = []
+
+	# Find pairs indexes to be removed and stores
+	# them into a temp list
+	for i in range(0, len(pairs)):
+		if(isinstance(pairs[i], list)):
+			if(pairs[i][0] == 'EMPTY' and pairs[i][1] == 'EMPTY'):
+				t_list.append(pairs[i])
+			else:
+				pass
+		else:
+			pass
+
+	cnt = len(t_list)
+	print('Found {} itens to remove', cnt)
+
+	# Removes found itens
+	for i in range(0, len(t_list)):
+		pairs.remove(t_list[i])
+
+	print('Memory space freed for more pairs to enter.')
 
 @chat.route('/chat')
 def chat_index():
@@ -124,6 +156,8 @@ def on_chat_message(sid, data):
 		# Sending message to actual recipient (only if recipient is not None)
 		sio.send(msg, room=nsid, namespace='/chat')
 
+	print('Pairs: ', pairs)
+
 @sio.on(EVENTS['SKIP'], namespace='/chat')
 def on_skip(sid):
 	print('{} skipped conversation.'.format(sid))
@@ -136,6 +170,7 @@ def on_skip(sid):
 	
 	# Removes this sid from pair
 	remove_from_pair(sid, pairs)
+	free_space(pairs)
 
 	# Shuffles pairs list before finding another pair to this sid
 	random.shuffle(pairs)
@@ -182,6 +217,7 @@ def on_disconnect(sid):
 	print('Notify {} that stranger left and remove stranger.'.format(psid))
 	# Sending alert to actual recipient (only if recipient is not None)
 	remove_from_pair(sid, pairs)
+	free_space(pairs)
 
 	if(psid):
 		sio.emit(EVENTS['PAIRLOST'], data={'msg':'Stranger left the conversation.'}, room=psid, namespace='/chat')

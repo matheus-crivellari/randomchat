@@ -186,6 +186,26 @@ html, body{
 									border: none;
 									background-color: transparent;
 									color: $color7;
+
+									&.confirm{
+										& > i.skip{
+											display: none;
+										}
+
+										& > i.confirm{
+											display: inline-block;
+										}
+									}
+
+									&.skip{
+										& > i.skip{
+											display: inline-block;
+										}
+
+										& > i.confirm{
+											display: none;
+										}
+									}
 			    				}
 			    			}
 

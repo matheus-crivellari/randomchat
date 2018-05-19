@@ -3,6 +3,7 @@
 	var msgPanel 	= document.getElementById('msgPanelBody');
 	var inputFld 	= document.getElementById('inputFld');
 	var sendButton 	= document.getElementById('sendButton');
+	var skipButton 	= document.getElementById('skipButton');
 
 	var sio;
 
@@ -36,12 +37,12 @@
 				</div>',
 
 
-		me : '<div class="row me">\
-		    <div class="msg me">\
-		        <p><strong>Me:</strong></p>\
-		        <div>{msg}</div>\
-		    </div>\
-		</div>',
+		me : 	'<div class="row me">\
+				    <div class="msg me">\
+				        <p><strong>Me:</strong></p>\
+				        <div>{msg}</div>\
+				    </div>\
+				</div>',
 	};
 
 	/**
@@ -63,6 +64,8 @@
 			holding : {
 				shift : false,
 			},
+			skip : false,
+
 		},
 
 		// Render namespace for message rendering related methods
@@ -170,6 +173,10 @@
 				Chat.render.msg.alert(msg);
 			},
 
+			skip : function () {
+				console.log('Called skip.');
+			},
+
 			/**
 			 * Receives an onPairFound event from socket.
 			 * That means someone is connected 
@@ -266,11 +273,44 @@
 			Chat.scroll.bottom();
 		},
 
+		skipConversation : function () {
+			var btn = $(skipButton);
+
+			if(btn.hasClass('confirm')){
+				btn.removeClass('confirm');
+				btn.addClass('skip');
+			}
+
+			Chat.flags.skip = false;
+			Chat.socket.skip();
+		},
+
 		/**
 		 * Callback fired when send button clicked.
 		 */
 		sendButtonClicked : function () {
 			Chat.sendMessage();
+		},
+
+		/**
+		 * Callback fired when skip button is clicked.
+		 * Also fired when ESC is pressed. 
+		 * If pressed twice skips the conversation.
+		 */
+		skipButtonCliked : function () {
+			var btn = $(skipButton);
+			if(btn.hasClass('confirm')){ // If user had called skip already, confirm the conversation skipping
+				Chat.flags.skip = false;
+				Chat.skipConversation();
+			}else{ // I user hadn't called skip yet, ask for confirmation
+				Chat.flags.skip = true;
+
+				if(btn.hasClass('skip')){
+					btn.removeClass('skip');
+				}
+
+				btn.addClass('confirm');
+			}
 		},
 
 		/**
@@ -281,6 +321,7 @@
 			inputFld.addEventListener('keydown', Chat.onKeyDown);
 			inputFld.addEventListener('keyup', Chat.onKeyUp);
 			sendButton.addEventListener('click', Chat.sendButtonClicked);
+			skipButton.addEventListener('click', Chat.skipButtonCliked);
 
 			Chat.socket.connect();
 			sio.on('message', Chat.socket.receive);
