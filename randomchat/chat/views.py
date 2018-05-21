@@ -97,26 +97,8 @@ def add_to_pair(sid, pairs, index):
 
 # Free space removing pairs with both spaces EMPTY
 def free_space(pairs):
-	t_list = []
 
-	# Find pairs indexes to be removed 
-	# and stores them into a temp list
-	for i in range(0, len(pairs)):
-		if(isinstance(pairs[i], list)):
-			if(pairs[i][0] == 'EMPTY' and pairs[i][1] == 'EMPTY'):
-				t_list.append(pairs[i])
-			else:
-				pass
-		else:
-			pass
-
-	cnt = len(t_list)
-	print('Found {} itens to remove', cnt)
-
-	# Removes itens found
-	for i in range(0, len(t_list)):
-		pairs.remove(t_list[i])
-
+	pairs = [pair for pair in pairs if pair != ['EMPTY', 'EMPTY']]
 	print('Memory space freed for more pairs to enter.')
 
 @chat.route('/chat')
