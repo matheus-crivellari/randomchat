@@ -52,6 +52,7 @@
 		SHIFT : 16,
 		ENTER : 13,
 		RETURN : 10,
+		F5 : 116,
 	};
 
 	/**
@@ -322,6 +323,16 @@
 			inputFld.addEventListener('keyup', Chat.onKeyUp);
 			sendButton.addEventListener('click', Chat.sendButtonClicked);
 			skipButton.addEventListener('click', Chat.skipButtonCliked);
+
+			document.addEventListener('keydown', function (e) {
+				if(e.which == Keys.F5){
+					if(!confirm('Are you sure you want to leave? :/')){
+						e.preventDefault();
+					}
+				}else{
+					return true;
+				}
+			});
 
 			Chat.socket.connect();
 			sio.on('message', Chat.socket.receive);
