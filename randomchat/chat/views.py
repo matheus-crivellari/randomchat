@@ -138,6 +138,7 @@ def on_chat_message(sid, data):
 		# Sending message to actual recipient (only if recipient is not None)
 		sio.send(msg, room=nsid, namespace='/chat')
 
+	free_space(pairs)
 	print('Pairs: ', pairs)
 
 @sio.on(EVENTS['SKIP'], namespace='/chat')
@@ -176,19 +177,12 @@ def on_skip(sid):
 	# If not found
 	else:
 		# Appends this sid to a new index in 
-		# pairs list with an empty pair
+		# pairs list with an None pair
 		# in order to make this pairable again
 		pairs.append([sid, None])
 
 
-	# Must implement a check for ['EMPTY', 'EMPTY']
-	# indexes in pairs list and clear them in order 
-	# to free memory.
-	# TO-DO
-	# 
-	# Must implement a trhead safe logic here
-	# in order keep things ok.
-	# TO-DO
+	free_space(pairs)
 
 	print('Pairs: ', pairs)
 

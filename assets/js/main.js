@@ -66,7 +66,7 @@
 				shift : false,
 			},
 			skip : false,
-
+			alone : true,
 		},
 
 		// Render namespace for message rendering related methods
@@ -176,6 +176,7 @@
 
 			skip : function () {
 				console.log('Called skip.');
+				sio.emit(Chat.socket.events.SKIP);
 			},
 
 			/**
@@ -185,6 +186,7 @@
 			 */
 			onPairFound : function (data) {
 				console.log('onPairFound');
+				Chat.flags.alone = false;
 				Chat.render.clear();
 				Chat.render.msg.alert(data.msg);
 				Chat.scroll.bottom();
@@ -199,6 +201,7 @@
 			 */
 			onPairLost : function (data) {
 				console.log('pairlost');
+				Chat.flags.alone = true;
 				Chat.render.msg.alert(data.msg);
 				Chat.scroll.bottom();
 				// Disable inputs after pair disconnected.
@@ -210,7 +213,7 @@
 		// Input namespace for input management related methods
 		input : {
 			/**
-			 * Disable all chat input.
+			 * Disables all chat input.
 			 */
 			disable : function () {
 				inputFld.disabled = 'disabled';
@@ -221,7 +224,7 @@
 			},
 
 			/**
-			 * Enable all chat input.
+			 * Enables all chat input.
 			 */
 			enable : function () {
 				inputFld.disabled = false;
@@ -230,6 +233,27 @@
 				sendButton.disabled = false;
 				$(sendButton).removeClass('disabled');
 			},
+
+			/**
+			 * Namespace for skip button.
+			 */
+			skip : {
+				// Enables skip button.
+				enable : function () {
+					var btn = $(skipButton);
+					if(btn.hasClass('disabled')){
+						btn.removeClass('disabled');
+					}
+				},
+
+				// Disbles skip button.
+				disable : function () {
+					var btn = $(skipButton);
+					if(!btn.hasClass('disabled')){
+						btn.addClass('disabled');
+					}
+				},
+			}
 		},
 
 		/**
@@ -283,7 +307,12 @@
 			}
 
 			Chat.flags.skip = false;
+			Chat.flags.alone = false;
 			Chat.socket.skip();
+			Chat.render.clear();
+			Chat.render.msg.alert('Connecting to someone...', MessageTemplate.icon.LOAD);
+			Chat.scroll.bottom();
+			Chat.input.disable();
 		},
 
 		/**
@@ -300,17 +329,24 @@
 		 */
 		skipButtonCliked : function () {
 			var btn = $(skipButton);
-			if(btn.hasClass('confirm')){ // If user had called skip already, confirm the conversation skipping
-				Chat.flags.skip = false;
-				Chat.skipConversation();
-			}else{ // I user hadn't called skip yet, ask for confirmation
-				Chat.flags.skip = true;
 
-				if(btn.hasClass('skip')){
-					btn.removeClass('skip');
+			if(Chat.flags.alone){ // User is alone
+				Chat.skipConversation();
+
+			}else{
+				if(btn.hasClass('confirm')){ // If user had called skip already, confirm the conversation skipping
+					Chat.flags.skip = false;
+					Chat.skipConversation();
+				}else{ // I user hadn't called skip yet, ask for confirmation
+					Chat.flags.skip = true;
+
+					if(btn.hasClass('skip')){
+						btn.removeClass('skip');
+					}
+
+					btn.addClass('confirm');
 				}
 
-				btn.addClass('confirm');
 			}
 		},
 
