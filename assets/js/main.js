@@ -324,14 +324,16 @@
 			sendButton.addEventListener('click', Chat.sendButtonClicked);
 			skipButton.addEventListener('click', Chat.skipButtonCliked);
 
-			document.addEventListener('keydown', function (e) {
-				if(e.which == Keys.F5){
-					if(!confirm('Are you sure you want to leave? :/')){
-						e.preventDefault();
-					}
-				}else{
-					return true;
-				}
+			// This event handler prevents the page to be
+			// unloaded or refreshed unintentionally by the user
+			window.addEventListener('beforeunload', function (e) {
+				// Although we have a custom message 
+				// here it will most likely not be 
+				// displayed to the user by the browser
+				var dialogText = 'Are you sure you want to leave? :/';
+				e.preventDefault();
+				e.returnValue = dialogText;
+				return dialogText;
 			});
 
 			Chat.socket.connect();
