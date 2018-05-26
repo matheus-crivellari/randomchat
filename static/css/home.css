@@ -1,0 +1,108 @@
+/* green */
+/* ocre */
+/* grey */
+/* brown */
+/* white */
+/* lime green */
+/* blood red */
+/* dark blue */
+/* baby blue */
+html, body {
+  background: #dadbd5;
+  font-family: 'Roboto', sans-serif; }
+  html header, body header {
+    width: 100%;
+    height: 100px;
+    margin: 0;
+    background-color: #009688; }
+    html header > div, body header > div {
+      width: 100%;
+      height: 100%; }
+      html header > div h1, body header > div h1 {
+        margin-top: 0;
+        font-weight: 100;
+        color: white;
+        text-shadow: 2px 1px 2px #002925; }
+  html main, body main {
+    widht: 100%;
+    padding: 10px; }
+    html main > div, body main > div {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box; }
+  html footer, body footer {
+    width: 100%;
+    margin: 0;
+    background-color: #eeeeee;
+    padding: 10px;
+    color: grey;
+    box-sizing: border-box;
+    text-align: justify; }
+    html footer > div, body footer > div {
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      padding: 10px; }
+  html nav, body nav {
+    width: 100%;
+    height: 80px;
+    margin: 0;
+    background-color: #eeeeee;
+    box-sizing: border-box;
+    padding: 10px; }
+    html nav button, body nav button {
+      width: 100%;
+      height: 100%;
+      outline: none;
+      border: none;
+      background-color: white;
+      color: grey;
+      text-decoration: none; }
+
+@media screen and (min-width: 768px) {
+  body header > div {
+    width: 512px;
+    margin: 0 auto; }
+  body main > div {
+    width: 512px;
+    margin: 0 auto; }
+  body footer > div {
+    width: 512px;
+    margin: 0 auto; }
+  body nav {
+    text-align: center; }
+    body nav button {
+      width: 512px;
+      margin: 0 auto; } }
+
+@media screen and (min-width: 1024px) {
+  body header > div {
+    width: 768px;
+    margin: 0 auto; }
+  body main > div {
+    width: 768px;
+    margin: 0 auto; }
+  body footer > div {
+    width: 768px;
+    margin: 0 auto; }
+  body nav {
+    text-align: center; }
+    body nav button {
+      width: 768px;
+      margin: 0 auto; } }
+
+@media screen and (min-width: 1280px) {
+  body header > div {
+    width: 1024px;
+    margin: 0 auto; }
+  body main > div {
+    width: 1024px;
+    margin: 0 auto; }
+  body footer > div {
+    width: 1024px;
+    margin: 0 auto; }
+  body nav {
+    text-align: center; }
+    body nav button {
+      width: 1024px;
+      margin: 0 auto; } }

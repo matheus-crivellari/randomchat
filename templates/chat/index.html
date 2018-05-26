@@ -1,59 +1,59 @@
 <!doctype html>
 <html class="no-js" lang="">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>{{ settings['APP_NAME'] }}</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>{{ settings['APP_NAME'] }}</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-        <link rel="manifest" href="site.webmanifest">
-        <link rel="apple-touch-icon" href="icon.png">
-        <!-- Place favicon.ico in the root directory -->
+	<link rel="manifest" href="site.webmanifest">
+	<link rel="apple-touch-icon" href="icon.png">
+	<!-- Place favicon.ico in the root directory -->
 
-        <link rel="stylesheet" href="{{ url_for('static', filename='vendor/normalize.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-        <link href="https://fonts.googleapis.com/css?family=Roboto:300,700" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-    </head>
-    <body>
+	<link rel="stylesheet" href="{{ url_for('static', filename='vendor/normalize.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,700" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+</head>
+<body>
         <!--[if lte IE 9]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
         <![endif]-->
 
         <!-- Chat page body -->
         <div class="main">
-            <div class="bg-head"></div>
-            <div class="wrapper">
-                <div class="chat-wrapper">
-                    <div class="msg-panel-wrapper">
-                        <div class="msg-panel-header">
-                            <div class="left"></div>
-                            <div class="center"></div>
-                            <div class="right"><button id="optionsButton" class="options-button"><i class="fa fa-ellipsis-v"></i></button></div>
-                        </div>
-                        <div class="msg-panel-bottom">
-                            <div class="center">
-                                <textarea id="inputFld" name="inputFld" class="input-fld" rows="2" placeholder="Type a message"></textarea>
-                            </div>
-                            <div class="left">
-                                <button id="skipButton" class="skip-button skip">
-                                    <i class="fa fa-random fa-2x skip"></i>
-                                    <i class="confirm">Skip?</i>
-                                </button>
-                            </div>
-                            <div class="right">
-                                <button id="sendButton" class="send-button"><i class="fa fa-telegram fa-2x"></i></button>
-                            </div>
-                        </div>
-                        <div id="msgPanelBody" class="msg-panel-body">
-                            
-                            <!-- Here goes the message rows -->
+        	<div class="bg-head"></div>
+        	<div class="wrapper">
+        		<div class="chat-wrapper">
+        			<div class="msg-panel-wrapper">
+        				<div class="msg-panel-header">
+        					<div class="left"></div>
+        					<div class="center"></div>
+        					<div class="right"><button id="optionsButton" class="options-button"><i class="fa fa-ellipsis-v"></i></button></div>
+        				</div>
+        				<div class="msg-panel-bottom">
+        					<div class="center">
+        						<textarea id="inputFld" name="inputFld" class="input-fld" rows="2" placeholder="Type a message"></textarea>
+        					</div>
+        					<div class="left">
+        						<button id="skipButton" class="skip-button skip">
+        							<i class="fa fa-random fa-2x skip"></i>
+        							<i class="confirm">Skip?</i>
+        						</button>
+        					</div>
+        					<div class="right">
+        						<button id="sendButton" class="send-button"><i class="fa fa-telegram fa-2x"></i></button>
+        					</div>
+        				</div>
+        				<div id="msgPanelBody" class="msg-panel-body">
+        					
+        					<!-- Here goes the message rows -->
 
-                        </div>
-                    </div>
-                </div>
-            </div>
+        				</div>
+        			</div>
+        		</div>
+        	</div>
         </div>
         <!-- End Chat page body -->
 
@@ -64,10 +64,10 @@
         <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
         <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
-        <script>
+        <<!-- script>
             window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
             ga('create','UA-XXXXX-Y','auto');ga('send','pageview')
         </script>
-        <script src="https://www.google-analytics.com/analytics.js" async defer></script>
+        <script src="https://www.google-analytics.com/analytics.js" async defer></script> -->
     </body>
-</html>
+    </html>
