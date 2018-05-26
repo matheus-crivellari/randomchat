@@ -104,7 +104,7 @@ def free_space(pair_list):
 
 @chat.route('/chat')
 def chat_index():
-	return render_template('index.html', settings=settings)
+	return render_template('chat/index.html', settings=settings)
 
 @sio.on('connect', namespace='/chat')
 def on_connect(sid, environ):
