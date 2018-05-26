@@ -86,6 +86,7 @@ def remove_from_pair(sid, pairs):
 				pass
 
 # Add sid to a pair in pairs
+# return the pair
 def add_to_pair(sid, pairs, index):
 	i = index
 	if(pairs[i][0] is None):
@@ -96,9 +97,9 @@ def add_to_pair(sid, pairs, index):
 	return pairs[i]
 
 # Free space removing pairs with both spaces EMPTY
-def free_space(pairs):
-
-	pairs = [pair for pair in pairs if pair != ['EMPTY', 'EMPTY']]
+def free_space(pair_list):
+	# Replaces the original list passed by reference with the comprehension
+	pair_list[:] = [pair for pair in pair_list if (pair != ['EMPTY', 'EMPTY'])]
 	print('Memory space freed for more pairs to enter.')
 
 @chat.route('/chat')
@@ -153,7 +154,6 @@ def on_skip(sid):
 	
 	# Removes this sid from pair
 	remove_from_pair(sid, pairs)
-	free_space(pairs)
 
 	# Shuffles pairs list before finding another pair to this sid
 	random.shuffle(pairs)
@@ -181,9 +181,7 @@ def on_skip(sid):
 		# in order to make this pairable again
 		pairs.append([sid, None])
 
-
 	free_space(pairs)
-
 	print('Pairs: ', pairs)
 
 
@@ -193,7 +191,6 @@ def on_disconnect(sid):
 	print('Notify {} that stranger left and remove stranger.'.format(psid))
 	# Sending alert to actual recipient (only if recipient is not None)
 	remove_from_pair(sid, pairs)
-	free_space(pairs)
 
 	if(psid):
 		sio.emit(EVENTS['PAIRLOST'], data={'msg':'Stranger left the conversation.'}, room=psid, namespace='/chat')
