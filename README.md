@@ -1,8 +1,8 @@
-# Randomzap (Random chat - Similar to Omegle)
+# RandomChat
 ## About
-This is a basic random anonymous chat where a user connect to another random user and start texting, pretty similar to Omegle.
-The server-side is developed in Python using [Flask](http://flask.pocoo.org/) and [python-socketio](http://python-socketio.readthedocs.io/en/latest/).
-The client-side is developed in HTML5 using some well-known web frameworks like [Normalize.css](https://necolas.github.io/normalize.css/) and [JQuery](https://jquery.com/). The client-side javascript and css development is automated by the use of [gulp.js](https://gulpjs.com/) and [NodeJS](https://nodejs.org/en/).
+This is a basic random anonymous chat where a user connect to another random user and start texting, pretty similar to many others like Omegle, Chat Roulette etc.
+The server-side is developed in Python using [Flask](http://flask.pocoo.org/) as MVC development framework and [python-socketio](http://python-socketio.readthedocs.io/en/latest/) for real-time communication.
+The client-side is developed in HTML5 using some well-known web development frameworks like [Normalize.css](https://necolas.github.io/normalize.css/) and [JQuery](https://jquery.com/). The client-side javascript and css development is automated by the use of [gulp.js](https://gulpjs.com/) and [NodeJS](https://nodejs.org/en/).
 This project is intended to be for learning purposes.
 
 ## Licence
