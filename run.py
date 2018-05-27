@@ -37,11 +37,12 @@ if __name__ == '__main__':
 		if(sys.argv[i] == 'true'): # Checks if next argument list index is 'true'
 			# If so, starts flask with socketio attached
 			app = socketio.Middleware(sio, app)
-			eventlet.wsgi.server(eventlet.listen(('', PORT)), app)
+			ioapp = eventlet.wsgi.server(eventlet.listen(('', PORT)), app)
 		else:
 			# If not, starts flask regular way
 			app.run(debug=True)
+			print('Tecoooo')
 	else:
 		# If no --socketio cli argument is passed, starts flask with socketio attached
 		app = socketio.Middleware(sio, app)
-		eventlet.wsgi.server(eventlet.listen(('', PORT)), app)
+		ioapp = eventlet.wsgi.server(eventlet.listen(('', PORT)), app)
