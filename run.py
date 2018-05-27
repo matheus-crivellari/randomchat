@@ -29,7 +29,7 @@ app.register_blueprint(chat)
 app.logger.setLevel(logging.NOTSET)
 
 print('Before initializing...')
-if __name__ == '__main__':
+if __name__ == '__main__' or os.environ.get('ON_HEROKU'):
 	print('Initializing main app.')
 	# Checks if is there an cli argument 
 	# called --socketio in argv list
