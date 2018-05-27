@@ -29,7 +29,7 @@ app.register_blueprint(chat)
 app.logger.setLevel(logging.NOTSET)
 
 print('Before initializing...')
-if __name__ == '__main__' or os.environ.get('ON_HEROKU'):
+if __name__ == '__main__':
 	print('Initializing main app.')
 	# Checks if is there an cli argument 
 	# called --socketio in argv list
@@ -39,8 +39,10 @@ if __name__ == '__main__' or os.environ.get('ON_HEROKU'):
 		if(sys.argv[i] == 'true'): # Checks if next argument list index is 'true'
 			# If so, starts flask with socketio attached
 			print('Starting Flask app with SocketIO attached.')
-			app = socketio.Middleware(sio, app)
-			eventlet.wsgi.server(eventlet.listen(('', PORT)), app)
+			# app = socketio.Middleware(sio, app)
+			# eventlet.wsgi.server(eventlet.listen(('', PORT)), app)
+			sio.init_app(app)
+			sio.run(app, debug=True)
 		else:
 			# If not, starts flask regular way
 			print('Starting regular Flask app.')
@@ -48,5 +50,7 @@ if __name__ == '__main__' or os.environ.get('ON_HEROKU'):
 	else:
 		# If no --socketio cli argument is passed, starts flask with socketio attached
 		print('Starting Flask app with SocketIO attached.')
-		app = socketio.Middleware(sio, app)
-		eventlet.wsgi.server(eventlet.listen(('', PORT)), app)
+		# app = socketio.Middleware(sio, app)
+		# eventlet.wsgi.server(eventlet.listen(('', PORT)), app)
+		sio.init_app(app)
+		sio.run(app, debug=True)

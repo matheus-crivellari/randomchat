@@ -1,7 +1,9 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 from randomchat.settings import settings
 
-import socketio
+# import socketio
+from flask_socketio import SocketIO
+
 import random
 import logging
 
@@ -16,11 +18,12 @@ EVENTS = {
 }
 
 chat = Blueprint('chat', __name__, template_folder='templates', static_folder='static')
-sio  = socketio.Server()
+# sio  = socketio.Server()
+sio = SocketIO()
 
 # Disable logs temporarily
 # not meant for production
-sio.logger.setLevel(logging.NOTSET)
+# sio.logger.setLevel(logging.NOTSET)
 
 pairs = []
 
@@ -107,7 +110,8 @@ def chat_index():
 	return render_template('chat/index.html', settings=settings)
 
 @sio.on('connect', namespace='/chat')
-def on_connect(sid, environ):
+def on_connect():
+	sid = request.sid;
 	print('Connected {}'.format(sid))
 
 	tp = first_available_pair(pairs)
@@ -127,8 +131,8 @@ def on_connect(sid, environ):
 
 
 @sio.on('message', namespace='/chat')
-def on_chat_message(sid, data):
-
+def on_chat_message(data):
+	sid = request.sid
 	msg = data
 	nsid = find_pair(sid,pairs)
 
@@ -143,7 +147,8 @@ def on_chat_message(sid, data):
 	print('Pairs: ', pairs)
 
 @sio.on(EVENTS['SKIP'], namespace='/chat')
-def on_skip(sid):
+def on_skip():
+	sid = request.sid
 	print('{} skipped conversation.'.format(sid))
 
 	# Finds this sid pair
@@ -186,7 +191,8 @@ def on_skip(sid):
 
 
 @sio.on('disconnect', namespace='/chat')
-def on_disconnect(sid):
+def on_disconnect():
+	sid = request.sid
 	psid = find_pair(sid, pairs)
 	print('Notify {} that stranger left and remove stranger.'.format(psid))
 	# Sending alert to actual recipient (only if recipient is not None)
