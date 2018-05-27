@@ -1,1 +1,1 @@
-web: gunicorn run:eventlet.wsgi --log-file=-
+web: gunicorn run:app --log-file=-
