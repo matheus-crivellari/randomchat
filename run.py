@@ -28,7 +28,9 @@ app.register_blueprint(chat)
 # not meant for production
 app.logger.setLevel(logging.NOTSET)
 
+print('Initializing')
 if __name__ == '__main__':
+	print('Initializing __main__')
 	# Checks if is there an cli argument 
 	# called --socketio in argv list
 	if('--socketio' in sys.argv):
