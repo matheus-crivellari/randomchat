@@ -1,3 +1,4 @@
+import os
 import sys
 
 from flask import Flask, Blueprint
@@ -11,7 +12,13 @@ import eventlet.wsgi
 
 import logging
 
-PORT = 8000
+PORT = 5000
+
+# This is an environment varaible created on Heroku app's running 
+# O.S. via App Settings on Heroku dashboard.
+# This is intended to make this app running both, locally and at Heroku's cloud.
+if(os.environ.get('ON_HEROKU')):
+	PORT = int(os.environ.get('PORT', 5000))
 
 app = Flask(__name__)
 app.register_blueprint(home)
