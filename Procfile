@@ -1,1 +1,1 @@
-web: gunicorn --worker-class eventlet.wsgi.server run:app --log-file=-
+web: gunicorn run:sio --log-file=-
