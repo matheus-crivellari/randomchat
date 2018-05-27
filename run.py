@@ -36,13 +36,15 @@ if __name__ == '__main__':
 		i += 1
 		if(sys.argv[i] == 'true'): # Checks if next argument list index is 'true'
 			# If so, starts flask with socketio attached
+			print('Starting Flask app with SocketIO attached.')
 			app = socketio.Middleware(sio, app)
-			ioapp = eventlet.wsgi.server(eventlet.listen(('', PORT)), app)
+			eventlet.wsgi.server(eventlet.listen(('', PORT)), app)
 		else:
 			# If not, starts flask regular way
+			print('Starting regular Flask app.')
 			app.run(debug=True)
-			print('Tecoooo')
 	else:
 		# If no --socketio cli argument is passed, starts flask with socketio attached
+		print('Starting Flask app with SocketIO attached.')
 		app = socketio.Middleware(sio, app)
-		ioapp = eventlet.wsgi.server(eventlet.listen(('', PORT)), app)
+		eventlet.wsgi.server(eventlet.listen(('', PORT)), app)
