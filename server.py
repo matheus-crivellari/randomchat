@@ -11,6 +11,7 @@ def index():
 
 @socketio.on('send_message')
 def handle_source(json_data):
+	print('Chegou msg')
     text = json_data['message'].encode('ascii', 'ignore')
     socketio.emit('echo', {'echo': 'Server Says: ' + text})
 
