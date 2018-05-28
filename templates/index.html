@@ -6,6 +6,7 @@
         <script type="text/javascript" charset="utf-8">
             var socket = io();
             socket.on('echo', function(data){
+                console.log(data);
                 $('#response').html('<p>'+data.echo+'</p>');
             });
             
