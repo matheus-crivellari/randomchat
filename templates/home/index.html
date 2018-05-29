@@ -1,0 +1,70 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>{{ settings['APP_NAME'] }}</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+	<link rel="manifest" href="site.webmanifest">
+	<link rel="apple-touch-icon" href="icon.png">
+	<!-- Place favicon.ico in the root directory -->
+
+	<link rel="stylesheet" href="{{ url_for('static', filename='vendor/normalize.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,700" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+</head>
+<body>
+	<!--[if lte IE 9]>
+		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+	<![endif]-->
+
+	<header>
+		<div>
+			<i class="fa fa-comment fa-5x"></i>
+			<h1><span>Ran</span>domChat</h1>
+			<p>Chat with strangers!</p>
+		</div>
+	</header>
+	<nav>
+		<p>Start chatting with a random starnger in a single click.</p>
+		<a href="/chat"><button>Start!</button></a>
+	</nav>
+	<main class="clear">
+		<div class="clear">
+			<div class="card left">
+				<p>Random</p>
+				<i class="fa fa-random fa-4x"></i>
+			</div>
+			<div class="card left">
+				<p>Anonymous</p>
+				<i class="fa fa-user-secret fa-4x"></i>
+			</div>
+			<div class="card left">
+				<p>Simple</p>
+				<i class="fa fa-comments fa-4x"></i>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</main>
+	<footer>
+		<div>
+			<p>Keep in mind that RandomChat doesn't control, in any ways, what users say during chat. Skip the conversation or every time you feel unconfortable. If you are under age, that is, less than 18 years old, only uses RandomChat under your parents or legal responsibles consent.</p>
+			<p>Keep in mind that your partner in chat can share with third parties any information you provide during chat. Be aware of impersonation and fraud attempts. Avoid revealing relevant personal information. RandomChat doesn't make use of cookies.</p>
+			<p>© RandomChat 2018.</p>
+		</div>
+	</footer>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+	<script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
+
+	<!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+	<!-- <script>
+	window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
+	ga('create','UA-XXXXX-Y','auto');ga('send','pageview')
+	</script>
+	<script src="https://www.google-analytics.com/analytics.js" async defer></script> -->
+</body>
+</html>
