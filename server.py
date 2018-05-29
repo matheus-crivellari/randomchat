@@ -3,7 +3,8 @@ from flask_socketio import SocketIO
 import json
 
 app = Flask(__name__)
-socketio = SocketIO(app)
+socketio = SocketIO()
+
 
 @app.route("/")
 def index():
@@ -16,5 +17,6 @@ def handle_source(json_data):
     print('Teco ', echo)
     socketio.emit('echo', {'echo': echo})
 
-if __name__ == "__main__":
-    socketio.run(app, debug=True)
+# if __name__ == "__main__":
+socketio.init_app(app)
+socketio.run(app, debug=True)
