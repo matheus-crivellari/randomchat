@@ -59,7 +59,7 @@ This project is Heroku compatible. It was tested and is working.
 ### Testing the chat
 - Open at least two web browser's window with the application runnging on them (either locally or at Heroku);
 - Hit Start! on both;
-- Send messages from one window toa nother!
+- Send messages from one window to another!
 
 #### Plus
 - If you're testing this on Heroku or any other live web server, invite some friends and start chatting randomly.
