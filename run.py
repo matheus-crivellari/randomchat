@@ -13,6 +13,7 @@ import eventlet.wsgi
 import logging
 
 app = Flask(__name__)
+sio.init_app(app)
 app.register_blueprint(home)
 app.register_blueprint(chat)
 
@@ -20,8 +21,7 @@ app.register_blueprint(chat)
 # not meant for production
 app.logger.setLevel(logging.NOTSET)
 
-sio.init_app(app)
-sio.run(app)
+sio.run(app, debug=True)
 exit()
 
 print('Before initializing...')
