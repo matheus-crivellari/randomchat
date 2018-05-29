@@ -12,14 +12,6 @@ import eventlet.wsgi
 
 import logging
 
-PORT = 5000
-
-# This is an environment varaible created on Heroku app's running 
-# O.S. via App Settings on Heroku dashboard.
-# This is intended to make this app running both, locally and at Heroku's cloud.
-if(os.environ.get('ON_HEROKU')):
-	PORT = int(os.environ.get('PORT'))
-
 app = Flask(__name__)
 app.register_blueprint(home)
 app.register_blueprint(chat)
@@ -29,7 +21,7 @@ app.register_blueprint(chat)
 app.logger.setLevel(logging.NOTSET)
 
 sio.init_app(app)
-sio.run(app, debug=True)
+sio.run(app)
 exit()
 
 print('Before initializing...')
@@ -43,8 +35,6 @@ if __name__ == '__main__' or os.environ.get('ON_HEROKU'):
 		if(sys.argv[i] == 'true'): # Checks if next argument list index is 'true'
 			# If so, starts flask with socketio attached
 			print('Starting Flask app with SocketIO attached.')
-			# app = socketio.Middleware(sio, app)
-			# eventlet.wsgi.server(eventlet.listen(('', PORT)), app)
 			sio.init_app(app)
 			sio.run(app, debug=True)
 		else:
@@ -54,7 +44,5 @@ if __name__ == '__main__' or os.environ.get('ON_HEROKU'):
 	else:
 		# If no --socketio cli argument is passed, starts flask with socketio attached
 		print('Starting Flask app with SocketIO attached.')
-		# app = socketio.Middleware(sio, app)
-		# eventlet.wsgi.server(eventlet.listen(('', PORT)), app)
 		sio.init_app(app)
 		sio.run(app, debug=True)
