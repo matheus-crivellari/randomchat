@@ -2,10 +2,10 @@ import os
 import sys
 
 from flask import Flask, Blueprint
-from randomchat.home.views import home
-from randomchat.chat.views import chat
 
-from randomchat.chat.views import sio
+from randomchat.home.views import home
+from randomchat.chat.views import chat, sio
+
 import socketio
 import eventlet
 import eventlet.wsgi
@@ -13,14 +13,10 @@ import eventlet.wsgi
 import logging
 
 app = Flask(__name__)
-sio.init_app(app)
 app.register_blueprint(home)
 app.register_blueprint(chat)
 
-# Disable logs temporarily
-# not meant for production
-app.logger.setLevel(logging.NOTSET)
-
+sio.init_app(app)
 sio.run(app, debug=True)
 exit()
 
