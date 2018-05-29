@@ -147,7 +147,11 @@
 
 			connect : function () {
 				console.log('Initializing socket.');
-				sio = io.connect('http://' + document.domain + ':' + location.port + this._namespace);
+				var protocol = window.location.href.substr(0,window.location.href.indexOf(':'));
+				protocol += '://';
+				var where = protocol + document.domain + ':' + location.port + this._namespace;
+				console.log('Where: ', where);
+				sio = io.connect(where);
 				console.log('Socket up: ', sio);
 			},
 
