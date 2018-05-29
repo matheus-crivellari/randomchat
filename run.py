@@ -12,7 +12,7 @@ app.register_blueprint(chat)
 
 # sio.init_app(app)
 # sio.run(app, debug=True)
-app.run(debug=True)
+app.run()
 exit()
 
 print('Before initializing...')
