@@ -1,16 +1,10 @@
 import os
 import sys
 
-from flask import Flask, Blueprint
+from flask import Flask
 
 from randomchat.home.views import home
 from randomchat.chat.views import chat, sio
-
-import socketio
-import eventlet
-import eventlet.wsgi
-
-import logging
 
 app = Flask(__name__)
 app.register_blueprint(home)
