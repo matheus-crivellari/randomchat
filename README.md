@@ -24,13 +24,13 @@ This project is intended to be for learning purposes.
 - Pip
 
 #### Instalation and running
-- Clone this into your local local drive
+- Clone this repository into your local local drive:
 	``` git clone https://github.com/matheus-crivellari/randomchat.git ```
-- Enter the working directory
+- Enter the working directory:
 	``` cd randomchat ```
-- Install requirements
+- Install requirements:
 	``` pip install ```
-- Run the app
+- Run the app:
 	``` python run.py ```
 - Open your web browser and go to the following address:
 	``` localhost:5000 ```
@@ -40,19 +40,19 @@ This project is Heroku compatible. It was tested and is working.
 
 #### Requirements
 - [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install).
-- Heroku account.
+- [Heroku account](https://signup.heroku.com/).
 
 #### Instalation and running
-- Clone this repository into your local drive
+- Clone this repository into your local drive:
 	``` git clone https://github.com/matheus-crivellari/randomchat.git ```
-- Enter the working directory
+- Enter the working directory:
 	``` cd randomchat ```
-- Log in to your Heroku account via web browser and create a new app
-- Lets assume your app is called ``` rndchat ```, set heroku's repo as one of your working directory's remote
+- Log in to your Heroku account via web browser and create a new app:
+- Lets assume your app is called ``` rndchat ```, set heroku's repo as one of your working directory's remote:
 	``` heroku git:remote -a rndchat ```
-- Push the source to your Heroku app's repository
+- Push the source to your Heroku app's repository:
 	``` git push heroku master ```
-- Wait until the installation process is finished, then run your new app
+- Wait until the installation process is finished, then run your new app:
 	``` heroku open ```
 	If everything went ok you should be redirected to your web browser.
 
