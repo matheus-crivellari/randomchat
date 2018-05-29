@@ -10,8 +10,9 @@ app = Flask(__name__)
 app.register_blueprint(home)
 app.register_blueprint(chat)
 
-sio.init_app(app)
-sio.run(app, debug=True)
+# sio.init_app(app)
+# sio.run(app, debug=True)
+app.run(debug=True)
 exit()
 
 print('Before initializing...')
